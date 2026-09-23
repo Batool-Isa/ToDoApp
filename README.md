@@ -36,3 +36,8 @@ I enjoyed structuring the project and linking the different layers together, esp
 
 ### Create a Category
 ![Create a Category](Assest/createCategory.png)
+
+### Update a Category
+![update category](Assest/updateCategory.png)
+### Delete a Category
+![delete category](Assest/deleteCategory.png)
