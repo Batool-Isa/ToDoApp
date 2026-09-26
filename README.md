@@ -41,3 +41,16 @@ I enjoyed structuring the project and linking the different layers together, esp
 ![update category](Assest/updateCategory.png)
 ### Delete a Category
 ![delete category](Assest/deleteCategory.png)
+### Get All Items
+![Get All Categories](Assest/getItems.png)
+
+### Get Item by ID
+![Get Category by ID](Assest/getItem.png)
+
+### Create an Item
+![Create a Category](Assest/createItem.png)
+
+### Update an Item
+![update category](Assest/updateItem.png)
+### Delete an Item
+![delete category](Assest/delete%20Item.pnge)

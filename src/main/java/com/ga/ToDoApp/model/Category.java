@@ -2,10 +2,12 @@ package com.ga.ToDoApp.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.action.internal.OrphanRemovalAction;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,7 +15,7 @@ import java.time.LocalDateTime;
 @Getter
 @ToString
 @Entity
-@Table(name = "category")
+@Table(name = "categories")
 public class Category {
     @Id
     @Column
@@ -29,4 +31,6 @@ public class Category {
     @UpdateTimestamp
     @Column
     private LocalDateTime updatedAt;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", orphanRemoval = true)
+    private List<Item> itemList;
 }

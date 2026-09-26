@@ -4,15 +4,12 @@ import com.ga.ToDoApp.exception.InformationExistException;
 import com.ga.ToDoApp.exception.InformationNotFoundException;
 import com.ga.ToDoApp.model.Category;
 import com.ga.ToDoApp.repository.CategoryRepository;
-import org.hibernate.boot.jaxb.hbm.internal.CacheAccessTypeConverter;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+@AllArgsConstructor
 @Service
 public class CategoryService {
     @Autowired
