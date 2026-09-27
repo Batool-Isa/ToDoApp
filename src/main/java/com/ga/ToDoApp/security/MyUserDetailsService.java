@@ -1,0 +1,18 @@
+package com.ga.ToDoApp.security;
+
+import com.ga.ToDoApp.model.User;
+import com.ga.ToDoApp.service.UserService;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+@Service
+public class MyUserDetailsService implements UserDetailsService {
+    private UserService userService;
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user= userService.findEmailByEmailAddress(email);
+        return new MyUserDetails(user);
+    }
+}

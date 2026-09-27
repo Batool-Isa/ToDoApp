@@ -1,5 +1,6 @@
 package com.ga.ToDoApp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.action.internal.OrphanRemovalAction;
@@ -33,4 +34,8 @@ public class Category {
     private LocalDateTime updatedAt;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "category", orphanRemoval = true)
     private List<Item> itemList;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name="user_id")
+    private User user;
 }
