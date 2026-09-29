@@ -11,32 +11,48 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
 public class SecurityConfiguration {
+
+    private MyUserDetailsService myUserDetailsService;
+
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public JwtRequestFilter authenticationJwtTokenFilter() {
+        return new JwtRequestFilter();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-          .csrf(csrf ->csrf.disable())
-                .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(
-             auth -> auth.requestMatchers("/auth/users",
-                                "/auth/users/register",
-                                "/auth/users/login").permitAll().anyRequest().authenticated()
-       );
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(
+                                "/auth/users",
+                                "/auth/users/login",
+                                "/auth/users/register"
+                        ).permitAll()
+                        .anyRequest().authenticated()
+                );
+        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
-
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration auth ) throws Exception{
-        return auth.getAuthenticationManager();
+    public AuthenticationManager authenticationManager(
+            AuthenticationConfiguration authConfig) throws Exception {
+        return authConfig.getAuthenticationManager();
     }
+
 }
